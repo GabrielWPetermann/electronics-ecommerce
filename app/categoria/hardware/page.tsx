@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import Image from "next/image"
-import { Search, User, Menu, Star, Grid, List } from "lucide-react"
+import { Search, User, Menu, Star } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -239,15 +239,6 @@ export default function HardwarePage() {
                     <SelectItem value="melhor-avaliacao">Melhor Avaliação</SelectItem>
                   </SelectContent>
                 </Select>
-
-                <div className="hidden md:flex border rounded-md">
-                  <Button variant="ghost" size="sm">
-                    <Grid className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <List className="h-4 w-4" />
-                  </Button>
-                </div>
               </div>
             </div>
 
