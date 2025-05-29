@@ -60,13 +60,13 @@ export function ModernHero({ onScrollToProducts }: ModernHeroProps) {
           </div>
 
           {/* Animated Text */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white animate-fade-in">
             <span className="inline-block animate-bounce-slow">Eletrônicos</span>
             <span className="mx-4 text-blue-400">&</span>
             <span className="inline-block animate-bounce-slow animation-delay-300">Eletrodomésticos</span>
           </h1>
 
-          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl animate-fade-in-up">
+          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl animate-fade-in-up">
             As melhores marcas com os melhores preços
             <span className="block text-lg text-blue-300 mt-2">Tecnologia que transforma sua vida</span>
           </p>
