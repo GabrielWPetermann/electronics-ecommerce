@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import Image from "next/image"
-import { Search, User, Menu, Star, Grid, List } from "lucide-react"
+import { Search, Package, Menu, Star } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { BackButton } from "@/components/ui/back-button"
@@ -137,7 +137,7 @@ export default function GamingPage() {
             <div className="flex items-center space-x-4">
               <Link href="/meus-pedidos">
                 <Button variant="ghost" size="icon" className="text-white hover:bg-gray-800">
-                  <User className="h-6 w-6" />
+                  <Package className="h-6 w-6" />
                 </Button>
               </Link>
               <CartSheet />
@@ -209,15 +209,6 @@ export default function GamingPage() {
                     <SelectItem value="melhor-avaliacao">Melhor Avaliação</SelectItem>
                   </SelectContent>
                 </Select>
-
-                <div className="flex border rounded-md">
-                  <Button variant="ghost" size="sm">
-                    <Grid className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <List className="h-4 w-4" />
-                  </Button>
-                </div>
               </div>
             </div>
 

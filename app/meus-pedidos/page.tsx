@@ -9,6 +9,8 @@ import { Package, Search, Eye, ArrowLeft } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useOrdersStore } from "@/lib/orders-store"
+import { OrderDetailsModal } from "@/components/order-details-modal"
+import { TrackingModal } from "@/components/tracking-modal"
 
 const statusMap = {
   processando: { label: "Processando", color: "bg-yellow-500" },
@@ -21,6 +23,11 @@ export default function MyOrdersPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const { orders } = useOrdersStore()
 
+  const [selectedOrderForDetails, setSelectedOrderForDetails] = useState<any>(null)
+  const [selectedOrderForTracking, setSelectedOrderForTracking] = useState<string>("")
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false)
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -29,6 +36,16 @@ export default function MyOrdersPage() {
   }
 
   const filteredOrders = orders.filter((order) => order.id.toLowerCase().includes(searchTerm.toLowerCase()))
+
+  const handleViewDetails = (order: any) => {
+    setSelectedOrderForDetails(order)
+    setIsDetailsModalOpen(true)
+  }
+
+  const handleTrackOrder = (orderId: string) => {
+    setSelectedOrderForTracking(orderId)
+    setIsTrackingModalOpen(true)
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -109,12 +126,12 @@ export default function MyOrdersPage() {
 
                       <div className="flex justify-between items-center pt-4 border-t">
                         <div className="flex space-x-2">
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" onClick={() => handleViewDetails(order)}>
                             <Eye className="h-4 w-4 mr-2" />
                             Ver Detalhes
                           </Button>
                           {order.status === "em_transito" && (
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" onClick={() => handleTrackOrder(order.id)}>
                               Rastrear Pedido
                             </Button>
                           )}
@@ -130,6 +147,16 @@ export default function MyOrdersPage() {
           )}
         </div>
       </div>
+      <OrderDetailsModal
+        order={selectedOrderForDetails}
+        isOpen={isDetailsModalOpen}
+        onClose={() => setIsDetailsModalOpen(false)}
+      />
+      <TrackingModal
+        orderId={selectedOrderForTracking}
+        isOpen={isTrackingModalOpen}
+        onClose={() => setIsTrackingModalOpen(false)}
+      />
     </div>
   )
 }

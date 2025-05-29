@@ -78,7 +78,7 @@ export function Chatbot({ isOpen, onClose }: ChatbotProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md h-[500px] flex flex-col">
+      <Card className="w-full max-w-lg h-[600px] flex flex-col">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="flex items-center space-x-2">
             <Bot className="h-5 w-5 text-primary" />
@@ -91,7 +91,7 @@ export function Chatbot({ isOpen, onClose }: ChatbotProps) {
 
         <CardContent className="flex-1 flex flex-col space-y-4">
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto space-y-3 max-h-64">
+          <div className="flex-1 overflow-y-auto space-y-3 max-h-80">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.isBot ? "justify-start" : "justify-end"}`}>
                 <div

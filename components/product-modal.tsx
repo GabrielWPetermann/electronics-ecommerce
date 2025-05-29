@@ -24,7 +24,21 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
   const [selectedColor, setSelectedColor] = useState("")
   const addItem = useCartStore((state) => state.addItem)
 
-  if (!product) return null
+  // Early return if no product
+  if (!product) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Produto não encontrado</DialogTitle>
+          </DialogHeader>
+          <div className="p-4 text-center">
+            <p>Produto não disponível</p>
+          </div>
+        </DialogContent>
+      </Dialog>
+    )
+  }
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -119,13 +133,13 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                     <Star
                       key={star}
                       className={`h-4 w-4 ${
-                        star <= Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                        star <= Math.floor(product.rating || 0) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
                       }`}
                     />
                   ))}
-                  <span className="ml-2 text-sm font-medium">{product.rating}</span>
+                  <span className="ml-2 text-sm font-medium">{product.rating || 0}</span>
                 </div>
-                <span className="text-sm text-muted-foreground">({product.reviews} avaliações)</span>
+                <span className="text-sm text-muted-foreground">({product.reviews || 0} avaliações)</span>
               </div>
 
               <div className="flex items-center space-x-4 mb-4">
@@ -142,7 +156,7 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
                 )}
               </div>
 
-              <p className="text-muted-foreground mb-4">{product.description}</p>
+              <p className="text-muted-foreground mb-4">{product.description || "Descrição não disponível"}</p>
             </div>
 
             <div className="space-y-4">
@@ -241,18 +255,22 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
 
           <TabsContent value="description" className="mt-4">
             <div className="prose max-w-none">
-              <p>{product.description}</p>
+              <p>{product.description || "Descrição não disponível"}</p>
             </div>
           </TabsContent>
 
           <TabsContent value="specifications" className="mt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.entries(product.specifications).map(([key, value]) => (
-                <div key={key} className="flex justify-between py-2 border-b">
-                  <span className="font-medium">{key}:</span>
-                  <span className="text-muted-foreground">{value}</span>
-                </div>
-              ))}
+              {product.specifications && Object.keys(product.specifications).length > 0 ? (
+                Object.entries(product.specifications).map(([key, value]) => (
+                  <div key={key} className="flex justify-between py-2 border-b">
+                    <span className="font-medium">{key}:</span>
+                    <span className="text-muted-foreground">{value}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-muted-foreground">Especificações não disponíveis</p>
+              )}
             </div>
           </TabsContent>
         </Tabs>
