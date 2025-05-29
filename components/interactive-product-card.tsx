@@ -44,13 +44,31 @@ export function InteractiveProductCard({ product, onProductClick }: InteractiveP
     setMousePosition({ x, y })
   }
 
+  const handleClick = () => {
+    // Create a complete product object with all required fields
+    const completeProduct = {
+      ...product,
+      description: `${product.name} - Produto de alta qualidade da categoria ${product.category}`,
+      specifications: {
+        Categoria: product.category,
+        Avaliação: `${product.rating}/5`,
+        Reviews: `${product.reviews} avaliações`,
+      },
+      subcategory: product.category,
+      brand: "TechStore",
+      inStock: true,
+      href: `/produto/${product.id}`,
+    }
+    onProductClick(completeProduct)
+  }
+
   return (
     <Card
       className="group relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 border-0 bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
-      onClick={() => onProductClick(product)}
+      onClick={handleClick}
       style={{
         transform: isHovered
           ? `perspective(1000px) rotateX(${(mousePosition.y - 150) / 20}deg) rotateY(${(mousePosition.x - 150) / 20}deg)`
